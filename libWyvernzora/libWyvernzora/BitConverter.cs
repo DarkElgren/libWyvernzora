@@ -123,7 +123,7 @@ namespace libWyvernzora
 
         public static UInt16 ToUInt16(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
         {
-            if (offset < 0 || offset >= src.Length - 2)
+            if (offset < 0 || offset > src.Length - 2)
                 throw new ArgumentOutOfRangeException("offset", offset, "Byte[].ToUInt16(): Offset out of source array bounds");
 
             UInt16 result;
@@ -142,14 +142,14 @@ namespace libWyvernzora
         }
         public static Int16 ToInt16(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
         {
-            if (offset < 0 || offset >= src.Length - 2)
+            if (offset < 0 || offset > src.Length - 2)
                 throw new ArgumentOutOfRangeException("offset", offset, "Byte[].ToInt16(): Offset out of source array bounds");
 
             return Sign(src.ToUInt16(offset, seq));
         }
         public static UInt32 ToUInt32(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
         {
-            if (offset < 0 || offset >= src.Length - 4)
+            if (offset < 0 || offset > src.Length - 4)
                 throw new ArgumentOutOfRangeException("offset", offset, "Byte[].ToUInt32(): Offset out of source array bounds");
 
             UInt32 result;
@@ -169,14 +169,14 @@ namespace libWyvernzora
         }
         public static Int32 ToInt32(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
         {
-            if (offset < 0 || offset >= src.Length - 4)
+            if (offset < 0 || offset > src.Length - 4)
                 throw new ArgumentOutOfRangeException("offset", offset, "Byte[].ToInt32(): Offset out of source array bounds");
 
             return Sign(src.ToUInt32(offset, seq));
         }
         public static UInt64 ToUInt64(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
         {
-            if (offset < 0 || offset >= src.Length - 8)
+            if (offset < 0 || offset > src.Length - 8)
                 throw new ArgumentOutOfRangeException("offset", offset, "Byte[].ToUInt64(): Offset out of source array bounds");
 
             UInt64 result;
@@ -197,14 +197,14 @@ namespace libWyvernzora
         }
         public static Int64 ToInt64(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
         {
-            if (offset < 0 || offset >= src.Length - 8)
+            if (offset < 0 || offset > src.Length - 8)
                 throw new ArgumentOutOfRangeException("offset", offset, "Byte[].ToInt64(): Offset out of source array bounds");
 
             return Sign(src.ToUInt64(offset, seq));
         }
         public static Single ToSingle(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
         {
-            if (offset < 0 || offset >= src.Length - 4)
+            if (offset < 0 || offset > src.Length - 4)
                 throw new ArgumentOutOfRangeException("offset", offset, "Byte[].ToSingle(): Offset out of source array bounds");
 
             MidSingle m = MidSingle.Init();
@@ -213,7 +213,7 @@ namespace libWyvernzora
         }
         public static Double ToDouble(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
         {
-            if (offset < 0 || offset >= src.Length - 4)
+            if (offset < 0 || offset > src.Length - 4)
                 throw new ArgumentOutOfRangeException("offset", offset, "Byte[].ToDouble(): Offset out of source array bounds");
 
             MidDouble m = MidDouble.Init();

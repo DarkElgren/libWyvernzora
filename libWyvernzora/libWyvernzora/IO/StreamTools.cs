@@ -24,13 +24,13 @@ namespace libWyvernzora
     /// </summary>
     public static class StreamTools
     {
-        public static Byte[] ReadBytes( Stream s, Int32 count)
+        public static Byte[] ReadBytes(this Stream s, Int32 count)
         {
             Byte[] buffer = new Byte[count];
             s.Read(buffer, 0, count);
             return buffer;
         }
-        public static void WriteBytes( Stream s, Byte[] src)
+        public static void WriteBytes(this Stream s, Byte[] src)
         { s.Write(src, 0, src.Length); }
 
         //Advanced reading functions that require explicit byte-sequence param
