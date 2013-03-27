@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E93ACB8B-BE0C-4FCC-9DE1-A35965C58150}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>libWyvernzora</RootNamespace>
+    <AssemblyName>libWyvernzora</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\EnumeratorEnumerable.cs" />
+    <Compile Include="Collections\Indexer.cs" />
+    <Compile Include="Collections\MappedEnumerator.cs" />
+    <Compile Include="Collections\PartialList.cs" />
+    <Compile Include="Collections\StringEx.cs" />
+    <Compile Include="Collections\ZippedEnumerator.cs" />
+    <Compile Include="Core\ArrayOps.cs" />
+    <Compile Include="Collections\ArrayStream.cs" />
+    <Compile Include="Core\BitOps.cs" />
+    <Compile Include="Core\DirectIntConv.cs" />
+    <Compile Include="Core\NumericOps.cs" />
+    <Compile Include="Core\Range.cs" />
+    <Compile Include="Cryptography\CRC32.cs" />
+    <Compile Include="IO\FileExtDictionaryValidator.cs" />
+    <Compile Include="IO\FileExtLengthValidator.cs" />
+    <Compile Include="IO\FileNameDescriptor.cs" />
+    <Compile Include="IO\IFileExtValidator.cs" />
+    <Compile Include="IO\PathEx.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\CodingAssistance.cs" />
+    <Compile Include="Utilities\CommandLine.cs" />
+    <Compile Include="Utilities\Counter.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

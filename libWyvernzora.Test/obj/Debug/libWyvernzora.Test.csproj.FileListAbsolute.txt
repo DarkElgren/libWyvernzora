@@ -1,0 +1,7 @@
+D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora.Test\bin\Debug\libWyvernzora.Test.dll
+D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora.Test\bin\Debug\libWyvernzora.Test.pdb
+D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora.Test\bin\Debug\libWyvernzora.dll
+D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora.Test\bin\Debug\libWyvernzora.pdb
+D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora.Test\obj\Debug\libWyvernzora.Test.csprojResolveAssemblyReference.cache
+D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora.Test\obj\Debug\libWyvernzora.Test.dll
+D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora.Test\obj\Debug\libWyvernzora.Test.pdb
