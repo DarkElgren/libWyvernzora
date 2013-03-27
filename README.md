@@ -1,8 +1,8 @@
 libWyvernzora
 =============
 
-My personal .Net library. A Big Bunch Of Stuff.
+**libWyvernzora** is my personal library with a big bunch of stuff that comes in handy whenever I code something.
 
-This is not a major project. Most of the library was completed two years ago, I'm just gradually moving code from personal SVN to github, that's it.
-One of the reasons I'm moving it now is because I'm extremely dissatisfied with my implementation of networking in TaskOptimizer project, and I mean to create a much better version of it very very very soon. In order to do that I need my old code and most of libWyvernzora classes.
-So...nah, this library won't be completely moved here. Not until I get done with TaskOptimizer.
+A very big chunk of code in libWyvernzora is re-implementation of Firefly Framework by F.R.C., but I am constantly making improvements over it. This library will eventually include everything I would ever need to reuse from my older projects: data structures, extension methods, custom services and much more.
+
+Right now this library is still work in progress.
