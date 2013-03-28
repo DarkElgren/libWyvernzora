@@ -1,5 +1,0 @@
-D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora\obj\Debug\libWyvernzora.csprojResolveAssemblyReference.cache
-D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora\bin\Debug\libWyvernzora.dll
-D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora\bin\Debug\libWyvernzora.pdb
-D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora\obj\Debug\libWyvernzora.dll
-D:\Projects\libWyvernzora\libWyvernzora\libWyvernzora\libWyvernzora\obj\Debug\libWyvernzora.pdb
