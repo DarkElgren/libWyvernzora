@@ -53,7 +53,7 @@ namespace libWyvernzora.Collections
             array = new T[length];
             offset = 0;
             position = 0;
-            this.length = 0;
+            this.length = length;
             closed = false;
         }
 
@@ -242,6 +242,15 @@ namespace libWyvernzora.Collections
         /// </summary>
         public virtual void Close()
         {
+        }
+
+        /// <summary>
+        ///     Writes the stream contents to an array, regardless of the Position property.
+        /// </summary>
+        /// <returns>A new array of T.</returns>
+        public T[] ToArray()
+        {
+            return array.SubArray(offset, length);
         }
 
         #region IDisposable

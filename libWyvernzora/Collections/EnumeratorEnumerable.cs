@@ -46,6 +46,7 @@ namespace libWyvernzora.Collections
             this.enumerator = enumerator;
         }
 
+        #region IEnumerable<T>
 
         public IEnumerator<T> GetEnumerator()
         {
@@ -56,5 +57,8 @@ namespace libWyvernzora.Collections
         {
             return enumerator;
         }
+
+        #endregion
+
     }
 }

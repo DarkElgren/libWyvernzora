@@ -30,6 +30,10 @@ using System.Linq;
 
 namespace libWyvernzora.Collections
 {
+    /// <summary>
+    ///     Partial List Class.
+    /// </summary>
+    /// <typeparam name="T">Type of elements in the list.</typeparam>
     public class PartialList<T> : IList<T>, ICloneable
     {
         private readonly Int32 length;
