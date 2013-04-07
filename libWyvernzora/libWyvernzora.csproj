@@ -57,8 +57,11 @@
     <Compile Include="IO\FileNameDescriptor.cs" />
     <Compile Include="IO\FileSystemService\FileSystemObject.cs" />
     <Compile Include="IO\FileSystemService\FileSystemObjectType.cs" />
+    <Compile Include="IO\FileSystemService\IFileSystemService.cs" />
     <Compile Include="IO\IFileExtValidator.cs" />
+    <Compile Include="IO\PartialStreamEx.cs" />
     <Compile Include="IO\PathEx.cs" />
+    <Compile Include="IO\StreamEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ActionLock.cs" />
     <Compile Include="Utilities\CodingAssistance.cs" />

@@ -52,6 +52,9 @@ namespace libWyvernzora.IO.FileSystemService
         /// <returns>A FileSystemObject if found; null otherwise.</returns>
         FileSystemObject GetFileSystemObject(String path);
 
+        // TODO Add OpenFile Method with StreamEx Support!
+
+
         /// <summary>
         ///     Closes the File System.
         /// </summary>
