@@ -1,12 +1,38 @@
-﻿using System;
+﻿// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// libWyvernzora/ListStringEx.cs
+// --------------------------------------------------------------------------------
+// Copyright (c) 2013, Jieni Luchijinzhou a.k.a Aragorn Wyvernzora
+// 
+// This file is a part of libWyvernzora.
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy 
+// of this software and associated documentation files (the "Software"), to deal 
+// in the Software without restriction, including without limitation the rights 
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies 
+// of the Software, and to permit persons to whom the Software is furnished to do 
+// so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all 
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace libWyvernzora.Collections
 {
     /// <summary>
-    /// Generic List-based String.
-    /// Similar to System.String, but instead is a generic collection.
+    ///     Generic List-based String.
+    ///     Similar to System.String, but instead is a generic collection.
     /// </summary>
     public class ListStringEx<T>
         : ICollection<T>, IEquatable<ListStringEx<T>>, IComparable<ListStringEx<T>>, ICloneable
@@ -21,9 +47,8 @@ namespace libWyvernzora.Collections
             this.data = data;
 
             hash = 1315423911;
-            foreach (var v in this.data)
+            foreach (T v in this.data)
                 hash = ((hash << 5) ^ v.GetHashCode() ^ ((hash >> 2) & 0x3FFFFFFF));
-
         }
 
         public ListStringEx(IList<T> data, Int32 hash)
@@ -34,18 +59,18 @@ namespace libWyvernzora.Collections
             this.hash = hash;
         }
 
-
         #region IEquatable<StringEx<T>> and Overrides
 
         public bool Equals(ListStringEx<T> obj)
         {
             if (obj == null) return false;
 
-            if (data.Count!= obj.data.Count) return false;
+            if (data.Count != obj.data.Count) return false;
 
-            var ec = EqualityComparer<T>.Default;
-            var en =
-                new EnumeratorEnumerable<Boolean>(new ZippedEnumerator<T, T, Boolean>(GetEnumerator(), obj.GetEnumerator(), ec.Equals));
+            EqualityComparer<T> ec = EqualityComparer<T>.Default;
+            EnumeratorEnumerable<bool> en =
+                new EnumeratorEnumerable<Boolean>(new ZippedEnumerator<T, T, Boolean>(GetEnumerator(),
+                                                                                      obj.GetEnumerator(), ec.Equals));
             return en.All(a => a);
         }
 
@@ -78,8 +103,9 @@ namespace libWyvernzora.Collections
             if (r1 < 0) right = right.Take(leftCount);
             else if (r1 > 0) left = left.Take(rightCount);
 
-            var cmp = Comparer<T>.Default;
-            var enu = new ZippedEnumerator<T, T, Int32>(left.GetEnumerator(), right.GetEnumerator(), cmp.Compare);
+            Comparer<T> cmp = Comparer<T>.Default;
+            ZippedEnumerator<T, T, int> enu = new ZippedEnumerator<T, T, Int32>(left.GetEnumerator(),
+                                                                                right.GetEnumerator(), cmp.Compare);
             Int32 r2 = (new EnumeratorEnumerable<Int32>(enu)).FirstOrDefault(x => x != 0);
             return r2 != 0 ? r2 : r1;
         }
@@ -93,7 +119,7 @@ namespace libWyvernzora.Collections
             return data.GetEnumerator();
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
@@ -400,6 +426,5 @@ namespace libWyvernzora.Collections
         }
 
         #endregion
-
     }
 }

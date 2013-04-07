@@ -75,7 +75,7 @@ namespace libWyvernzora.IO
             // Verify extensions
             if (validator != null)
             {
-                for (int i = dots.Count - 1; i >= splitter; i--) // Note that last dot is 'virtual' i.e. it is not there
+                for (int i = dots.Count - 1; i > splitter; i--) // Note that last dot is 'virtual' i.e. it is not there
                 {
                     if (validator.IsValid(path.Substring(dots[i - 1], dots[i] - dots[i - 1]),
                                           path.Substring(dots[i - 1]))) continue;

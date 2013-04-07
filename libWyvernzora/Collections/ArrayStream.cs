@@ -109,6 +109,7 @@ namespace libWyvernzora.Collections
         public virtual Int32 Position
         {
             get { return position; }
+            set { position = value; }
         }
 
         /// <summary>

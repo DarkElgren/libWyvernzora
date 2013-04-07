@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libWyvernzora.Test", "libWy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libWyvernzora.Sandbox", "libWyvernzora.Sandbox\libWyvernzora.Sandbox.csproj", "{E09B6BFB-E01E-4054-BC17-29544E87C25D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libWyvernzora.Sandbox.WinForms", "libWyvernzora.Sandbox.WinForms\libWyvernzora.Sandbox.WinForms.csproj", "{060FAC64-7600-4E7C-BC06-DA8C76E9408A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libWyvernzora.WinForms", "libWyvernzora.WinForms\libWyvernzora.WinForms.csproj", "{6CF7B624-7C63-4C58-82A6-DF9E3BC3E5E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{E09B6BFB-E01E-4054-BC17-29544E87C25D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E09B6BFB-E01E-4054-BC17-29544E87C25D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E09B6BFB-E01E-4054-BC17-29544E87C25D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{060FAC64-7600-4E7C-BC06-DA8C76E9408A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{060FAC64-7600-4E7C-BC06-DA8C76E9408A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{060FAC64-7600-4E7C-BC06-DA8C76E9408A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{060FAC64-7600-4E7C-BC06-DA8C76E9408A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF7B624-7C63-4C58-82A6-DF9E3BC3E5E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF7B624-7C63-4C58-82A6-DF9E3BC3E5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF7B624-7C63-4C58-82A6-DF9E3BC3E5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF7B624-7C63-4C58-82A6-DF9E3BC3E5E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

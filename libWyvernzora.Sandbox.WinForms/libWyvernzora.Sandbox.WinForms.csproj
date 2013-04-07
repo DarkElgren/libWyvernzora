@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E93ACB8B-BE0C-4FCC-9DE1-A35965C58150}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{060FAC64-7600-4E7C-BC06-DA8C76E9408A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>libWyvernzora</RootNamespace>
-    <AssemblyName>libWyvernzora</AssemblyName>
+    <RootNamespace>libWyvernzora.Sandbox.WinForms</RootNamespace>
+    <AssemblyName>libWyvernzora.Sandbox.WinForms</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -36,38 +38,39 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\EnumeratorEnumerable.cs" />
-    <Compile Include="Collections\Indexer.cs" />
-    <Compile Include="Collections\MappedEnumerator.cs" />
-    <Compile Include="Collections\PartialList.cs" />
-    <Compile Include="Collections\ListStringEx.cs" />
-    <Compile Include="Collections\ZippedEnumerator.cs" />
-    <Compile Include="Core\ArrayOps.cs" />
-    <Compile Include="Collections\ArrayStream.cs" />
-    <Compile Include="Core\BitOps.cs" />
-    <Compile Include="Core\DirectIntConv.cs" />
-    <Compile Include="Core\NumericOps.cs" />
-    <Compile Include="Core\Range.cs" />
-    <Compile Include="Cryptography\CRC32.cs" />
-    <Compile Include="IO\FileExtListValidator.cs" />
-    <Compile Include="IO\FileExtLengthValidator.cs" />
-    <Compile Include="IO\FileNameDescriptor.cs" />
-    <Compile Include="IO\FileSystemService\FileSystemObject.cs" />
-    <Compile Include="IO\FileSystemService\FileSystemObjectType.cs" />
-    <Compile Include="IO\IFileExtValidator.cs" />
-    <Compile Include="IO\PathEx.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\ActionLock.cs" />
-    <Compile Include="Utilities\CodingAssistance.cs" />
-    <Compile Include="Utilities\CommandLine.cs" />
-    <Compile Include="Utilities\Counter.cs" />
-    <Compile Include="Utilities\RandomEx.cs" />
-    <Compile Include="Xml\XmlElementActionLock.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

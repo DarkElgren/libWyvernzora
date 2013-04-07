@@ -1,5 +1,5 @@
 ﻿// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// libWyvernzora/FileExtDictionaryValidator.cs
+// libWyvernzora/XmlElementActionLock.cs
 // --------------------------------------------------------------------------------
 // Copyright (c) 2013, Jieni Luchijinzhou a.k.a Aragorn Wyvernzora
 // 
@@ -24,44 +24,26 @@
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Xml;
+using libWyvernzora.Utilities;
 
-namespace libWyvernzora.IO
+namespace libWyvernzora.Xml
 {
     /// <summary>
-    ///     Validates whether strings can be file extension based on a list of extensions.
-    ///     Validates composite extensions, not current ones!
+    ///     XML Element Action Lock.
+    ///     Makes sure that WriteEndElement() is called for each WriteStartElement()
     /// </summary>
-    public class FileExtListValidator : IFileExtValidator
+    public class XmlElementActionLock : ActionLock
     {
         /// <summary>
         ///     Constructor.
         ///     Initializes a new instance.
         /// </summary>
-        /// <param name="extensions">Collection of allowed extensions with preceeding dots.</param>
-        public FileExtListValidator(IEnumerable<String> extensions)
+        /// <param name="writer"></param>
+        /// <param name="elementName"></param>
+        public XmlElementActionLock(XmlWriter writer, String elementName)
+            : base(() => writer.WriteStartElement(elementName), writer.WriteEndElement)
         {
-            // Copy the collection
-            Extensions = extensions.ToArray();
-
-            // Case insensitive!
-            for (int i = 0; i < Extensions.Length; i++)
-                Extensions[i] = Extensions[i].ToLower();
-
-            // Sort array so that we can binary search
-            Array.Sort(Extensions);
-        }
-
-        /// <summary>
-        ///     Gets the array of allowed extensions with preceeding dots.
-        /// </summary>
-        public string[] Extensions { get; private set; }
-
-        public bool IsValid(string currentExt, string compositeExt)
-        {
-            Int32 index = Array.BinarySearch(Extensions, compositeExt);
-            return index >= 0;
         }
     }
 }

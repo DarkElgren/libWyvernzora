@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E93ACB8B-BE0C-4FCC-9DE1-A35965C58150}</ProjectGuid>
+    <ProjectGuid>{6CF7B624-7C63-4C58-82A6-DF9E3BC3E5E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>libWyvernzora</RootNamespace>
-    <AssemblyName>libWyvernzora</AssemblyName>
+    <RootNamespace>libWyvernzora.WinForms</RootNamespace>
+    <AssemblyName>libWyvernzora.WinForms</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,35 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\EnumeratorEnumerable.cs" />
-    <Compile Include="Collections\Indexer.cs" />
-    <Compile Include="Collections\MappedEnumerator.cs" />
-    <Compile Include="Collections\PartialList.cs" />
-    <Compile Include="Collections\ListStringEx.cs" />
-    <Compile Include="Collections\ZippedEnumerator.cs" />
-    <Compile Include="Core\ArrayOps.cs" />
-    <Compile Include="Collections\ArrayStream.cs" />
-    <Compile Include="Core\BitOps.cs" />
-    <Compile Include="Core\DirectIntConv.cs" />
-    <Compile Include="Core\NumericOps.cs" />
-    <Compile Include="Core\Range.cs" />
-    <Compile Include="Cryptography\CRC32.cs" />
-    <Compile Include="IO\FileExtListValidator.cs" />
-    <Compile Include="IO\FileExtLengthValidator.cs" />
-    <Compile Include="IO\FileNameDescriptor.cs" />
-    <Compile Include="IO\FileSystemService\FileSystemObject.cs" />
-    <Compile Include="IO\FileSystemService\FileSystemObjectType.cs" />
-    <Compile Include="IO\IFileExtValidator.cs" />
-    <Compile Include="IO\PathEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\ActionLock.cs" />
-    <Compile Include="Utilities\CodingAssistance.cs" />
-    <Compile Include="Utilities\CommandLine.cs" />
-    <Compile Include="Utilities\Counter.cs" />
-    <Compile Include="Utilities\RandomEx.cs" />
-    <Compile Include="Xml\XmlElementActionLock.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
