@@ -25,36 +25,45 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 
-// TODO Refine Implementation
-
-namespace libWyvernzora.IO.FileSystemService
+namespace libWyvernzora.IO.UnifiedFileSystem
 {
     /// <summary>
     ///     libWyvernzora File System Service Interface
     /// </summary>
-    public interface IFileSystemService : IDisposable
+    public interface IFileSystem<T> : IDisposable where T : FileSystemObject
     {
+        /// <summary>
+        /// Gets a value indicating whether the IFileSystemService is readonly.
+        /// </summary>
+        Boolean IsReadOnly { get; }
+
         /// <summary>
         ///     List of all FileSystemObjects of File type.
         /// </summary>
-        IEnumerable<FileSystemObject> Files { get; }
+        IEnumerable<T> Files { get; }
 
         /// <summary>
         ///     Root FileSystemObject of the File System.
         /// </summary>
-        FileSystemObject Root { get; }
+        T Root { get; }
 
         /// <summary>
         ///     Tries to get the FileSystemObject with the specified path.
         /// </summary>
         /// <param name="path">Path of the FileSystemObject.</param>
         /// <returns>A FileSystemObject if found; null otherwise.</returns>
-        FileSystemObject GetFileSystemObject(String path);
+        T GetFileSystemObject(String path);
 
-        // TODO Add OpenFile Method with StreamEx Support!
-
-
+        /// <summary>
+        /// Tries to open the FileSystemObject as a stream.
+        /// </summary>
+        /// <param name="obj">FileSystemObject to open.</param>
+        /// <param name="mode">FileMode to open FileSystemObject with.</param>
+        /// <returns>StreamEx if successful; null otherwise.</returns>
+        StreamEx OpenFileSystemObject(T obj, FileAccess mode);
+        
         /// <summary>
         ///     Closes the File System.
         /// </summary>

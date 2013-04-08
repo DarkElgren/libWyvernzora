@@ -34,12 +34,10 @@ namespace libWyvernzora.IO
     /// <summary>
     ///     Partial StringEx.
     ///     References a "substream" of another stream and behaves just like
-    ///     a complete stream instance.
+    ///     a complete stream instance. Supports concurrent reading of the same
+    ///     base StreamEx via multiple instances of PartialStreamEx on multiple
+    ///     threads.
     /// </summary>
-    /// <remarks>
-    ///     Although this class supports cuncurrent reading/writing via multiple
-    ///     instances from/to the same base stream, such practice is discouraged.
-    /// </remarks>
     public sealed class PartialStreamEx : StreamEx
     {
         private readonly FileAccess access;

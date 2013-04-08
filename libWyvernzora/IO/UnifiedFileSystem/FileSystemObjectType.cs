@@ -23,7 +23,7 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-namespace libWyvernzora.IO.FileSystemService
+namespace libWyvernzora.IO.UnifiedFileSystem
 {
     /// <summary>
     ///     Represents type of FileSystemObject

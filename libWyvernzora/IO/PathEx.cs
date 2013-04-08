@@ -239,7 +239,7 @@ namespace libWyvernzora.IO
         /// </summary>
         /// <param name="path">Directory path. Please do not use file paths.</param>
         /// <returns>Directory path with tailing separator.</returns>
-        public static String GetPathWithSeparator(String path)
+        public static String GetPathWithoutSeparator(String path)
         {
             if (String.IsNullOrEmpty(path)) return String.Empty;
             return path.TrimEnd('\\', '/');
@@ -250,9 +250,9 @@ namespace libWyvernzora.IO
         /// </summary>
         /// <param name="path">Directory path. Please do not use file paths.</param>
         /// <returns>Directory path without tailing separator.</returns>
-        public static String GetPathWithoutSeparator(String path)
+        public static String GetPathWithSeparator(String path)
         {
-            String d = GetPathWithSeparator(path);
+            String d = GetPathWithoutSeparator(path);
             if (d == String.Empty) return String.Empty;
             return d + Path.DirectorySeparatorChar;
         }
@@ -265,15 +265,15 @@ namespace libWyvernzora.IO
         /// <returns>Absolute path equivalent to the relative path.</returns>
         public static String GetAbsolutePath(String path, String basePath)
         {
-            basePath = GetPathWithoutSeparator(basePath);
+            basePath = GetPathWithoutSeparator(basePath).Replace('/', '\\');
             if (!String.IsNullOrEmpty(path))
-                path = path.TrimStart('/', '\\');
+                path = path.TrimStart('/', '\\').Replace('/', '\\'); ;
 
             Stack<String> s = new Stack<string>();
 
             if (basePath != String.Empty)
             {
-                foreach (string d in Regex.Split(basePath, "\\|/").Where(d => d != "."))
+                foreach (string d in basePath.Split('\\').Where(d => d != "."))
                 {
                     if (d == "..")
                     {
@@ -287,15 +287,16 @@ namespace libWyvernzora.IO
                             }
                         }
                         else s.Push(d);
+                        continue;
                     }
-                    else if (d.Contains(":")) s.Clear();
+                    if (d.Contains(":")) s.Clear();
                     s.Push(d);
                 }
             }
 
             if (path != String.Empty)
             {
-                foreach (string d in Regex.Split(path, "\\|/").Where(d => d != "."))
+                foreach (string d in path.Split('\\').Where(d => d != "."))
                 {
                     if (d == "..")
                     {
@@ -309,8 +310,9 @@ namespace libWyvernzora.IO
                             }
                         }
                         else s.Push(d);
+                        continue;
                     }
-                    else if (d.Contains(":")) s.Clear();
+                    if (d.Contains(":")) s.Clear();
                     s.Push(d);
                 }
             }

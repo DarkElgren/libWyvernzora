@@ -51,7 +51,7 @@ namespace libWyvernzora.Core
         public static String ToHexString(this Int64 src, Int32 padding)
         {
             string r = Convert.ToString(src, 16).ToUpper();
-            r = "0x" + r.PadLeft(padding, '0');
+            r = r.PadLeft(padding, '0');
             return r;
         }
 

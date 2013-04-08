@@ -34,7 +34,7 @@ namespace libWyvernzora.Cryptography
     ///     CRC32 Hash Algorithm.
     ///     Implemented according to IEEE-802 and RFC3385.
     /// </summary>
-    public class CRC32 : HashAlgorithm
+    public sealed class CRC32 : HashAlgorithm
     {
         private UInt32 hash;
         private UInt32[] table;

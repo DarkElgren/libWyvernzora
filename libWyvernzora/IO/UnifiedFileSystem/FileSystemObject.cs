@@ -27,7 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace libWyvernzora.IO.FileSystemService
+namespace libWyvernzora.IO.UnifiedFileSystem
 {
     /// <summary>
     ///     Represents an Object in a File System.
@@ -36,9 +36,6 @@ namespace libWyvernzora.IO.FileSystemService
     public abstract class FileSystemObject
     {
         protected String dispName;
-        public List<FileSystemObject> Children { get; private set; }
-        public Dictionary<String, FileSystemObjectType> ChildrenMap { get; private set; }
-        public FileSystemObject Parent { get; set; }
 
         /// <summary>
         ///     Constructor.
@@ -55,28 +52,17 @@ namespace libWyvernzora.IO.FileSystemService
             Type = type;
             Length = length;
             DisplayName = dispName;
-
-            Children = new List<FileSystemObject>();
-            ChildrenMap =
-                new Dictionary<string, FileSystemObjectType>(IsCaseSensitive
-                                                                 ? StringComparer.CurrentCulture
-                                                                 : StringComparer.CurrentCultureIgnoreCase);
         }
-
-        /// <summary>
-        ///     Determines whether FileSystemObject is case sensitive.
-        /// </summary>
-        public abstract Boolean IsCaseSensitive { get; }
 
         /// <summary>
         ///     Internal name of the FileSystemObject.
         /// </summary>
-        public String Name { get; set; }
+        public virtual String Name { get; set; }
 
         /// <summary>
         ///     Display name of the FileSystemObject.
         /// </summary>
-        public String DisplayName
+        public virtual String DisplayName
         {
             get { return String.IsNullOrEmpty(dispName) ? Name : dispName; }
             set { dispName = value; }
@@ -85,17 +71,22 @@ namespace libWyvernzora.IO.FileSystemService
         /// <summary>
         ///     Length of the FileSystemObject.
         /// </summary>
-        public Int64 Length { get; set; }
+        public virtual Int64 Length { get; set; }
 
         /// <summary>
         ///     Type of the FileSystemObject.
         /// </summary>
-        public FileSystemObjectType Type { get; set; }
+        public virtual FileSystemObjectType Type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parent FileSystemObject of this FileSystemObject.
+        /// </summary>
+        public virtual FileSystemObject Parent { get; set; }
 
         /// <summary>
         ///     Path of the FileSystemObject, relative to the root of the File System.
         /// </summary>
-        public String Path
+        public virtual String Path
         {
             get
             {
@@ -103,11 +94,38 @@ namespace libWyvernzora.IO.FileSystemService
                 String path = Name;
                 while (temp != null)
                 {
-                    path = PathEx.CombinePath(temp.Name, path);
+                    if (temp.Parent != null)
+                        path = PathEx.CombinePath(temp.Name, path);
                     temp = temp.Parent;
                 }
                 return path;
             }
         }
+
+        #region Children
+
+        /// <summary>
+        /// When implemented in a derived class, gets all children
+        /// of the FileSystemObject.
+        /// </summary>
+        /// <returns></returns>
+        public abstract IList<FileSystemObject> GetChildren();
+        /// <summary>
+        /// When implemented in a derived class, checks whether
+        /// a FileSystemObject with the specified name exists.
+        /// </summary>
+        /// <param name="name">Name of the FileSystemObject, may or may not be case sensitive.</param>
+        /// <returns>True if the FileSystemObject exists; false otherwise.</returns>
+        public abstract Boolean HasChild(String name);
+        /// <summary>
+        /// When implemented in a derived class, gets the FileSystemObject
+        /// with the specified name.
+        /// Throws exception if FileSystemObject is not found.
+        /// </summary>
+        /// <param name="name">Name of the FileSystemObject, may or may not be case sensitive.</param>
+        /// <returns>FileSystemObject</returns>
+        public abstract FileSystemObject GetChild(String name);
+
+        #endregion
     }
 }

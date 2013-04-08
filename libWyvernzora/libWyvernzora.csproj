@@ -55,9 +55,11 @@
     <Compile Include="IO\FileExtListValidator.cs" />
     <Compile Include="IO\FileExtLengthValidator.cs" />
     <Compile Include="IO\FileNameDescriptor.cs" />
-    <Compile Include="IO\FileSystemService\FileSystemObject.cs" />
-    <Compile Include="IO\FileSystemService\FileSystemObjectType.cs" />
-    <Compile Include="IO\FileSystemService\IFileSystemService.cs" />
+    <Compile Include="IO\UnifiedFileSystem\FileSystemObject.cs" />
+    <Compile Include="IO\UnifiedFileSystem\FileSystemObjectType.cs" />
+    <Compile Include="IO\UnifiedFileSystem\IFileSystem.cs" />
+    <Compile Include="IO\UnifiedFileSystem\WindowsFileSystemObject.cs" />
+    <Compile Include="IO\UnifiedFileSystem\WindowsFileSystem.cs" />
     <Compile Include="IO\IFileExtValidator.cs" />
     <Compile Include="IO\PartialStreamEx.cs" />
     <Compile Include="IO\PathEx.cs" />
