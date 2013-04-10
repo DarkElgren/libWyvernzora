@@ -200,6 +200,22 @@ namespace libWyvernzora.IO
         }
 
         /// <summary>
+        /// Reads next variable-width integer from the stream.
+        /// Supports VInt up to 64 bits long.
+        /// </summary>
+        /// <returns>Variable-width signed integer.</returns>
+        public VInt ReadVInt()
+        {
+            Byte[] b = Peek(1);
+            if (b.Length == 0) 
+                throw new EndOfStreamException();
+
+            Int32 width = VInt.GetWidth(b);
+            Byte[] value = ReadBytes(width);
+            return new VInt(value);
+        }
+
+        /// <summary>
         ///     Writes array of bytes to the StreamEx.
         /// </summary>
         /// <param name="b">Byte array to write.</param>
@@ -275,6 +291,33 @@ namespace libWyvernzora.IO
         public void WriteInt64(Int64 b, BitSequence seq = BitSequence.LittleEndian)
         {
             Write(b.ToBinary(seq), 0, 8);
+        }
+
+        /// <summary>
+        /// Writes a signed variable-bit integer to the StreamEx.
+        /// </summary>
+        /// <param name="b">Variable-bit integer.</param>
+        /// <param name="width">Desired width of the VInt representation; if negative, default width will be used.</param>
+        /// <exception cref="ArgumentException">Throws ArgumentException if the specified width is positive and less than necessary width to contain the VInt value.</exception>
+        public void WriteVInt(VInt b, Int32 width = -1)
+        {
+            WriteBytes(b.Encode(width));
+        }
+
+        /// <summary>
+        /// Reads an array of bytes from the stream without advancing stream position.
+        /// </summary>
+        /// <param name="count">Number of bytes to read.</param>
+        /// <returns>Array of bytes read from the stream; array may be shorter than <paramref name="count"/> if stream reaches the end.</returns>
+        public Byte[] Peek(Int32 count)
+        {
+            if (!CanSeek) throw new NotSupportedException();
+
+            Byte[] temp = new byte[count];
+            Int32 readCount = Read(temp, 0, count);
+            Position -= readCount;
+
+            return readCount == count ? temp : temp.SubArray(0, readCount);
         }
 
         #endregion

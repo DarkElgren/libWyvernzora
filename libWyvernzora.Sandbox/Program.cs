@@ -9,6 +9,7 @@ using libWyvernzora.Core;
 using libWyvernzora.IO;
 using libWyvernzora.Utilities;
 using libWyvernzora.IO.UnifiedFileSystem;
+using libWyvernzora.Test;
 
 namespace libWyvernzora.Sandbox
 {
@@ -16,19 +17,25 @@ namespace libWyvernzora.Sandbox
     {
         static void Main(string[] args)
         {
-            for (int i = 0; i < 10000; i++)
+            StreamEx ex = new StreamEx("data.bin", FileMode.Create);
+
+            Int32[] array = TestUtilities.GenerateRandomArray(1000);
+
+            foreach (var i in array) ex.WriteVInt(new VInt(i));
+
+            ex.Position = 0;
+
+            Int32[] array2 = new Int32[1000];
+
+            for (int i = 0; i < array2.Length; i++)
             {
-                Int64 number = RandomEx.Instance.NextInt64();
+                VInt x = ex.ReadVInt();
+                array2[i] = (Int32)x.Value;
+            }
 
-                if (number > VInt.MaxValue || number < VInt.MinValue) continue;
-
-                VInt x = new VInt(number);
-
-                Byte[] b = x.Encode();
-
-                VInt y = new VInt(b);
-
-                if (number != y)
+            for (int i = 0; i < array2.Length; i++)
+            {
+                if (array[i] != array2[i])
                     System.Diagnostics.Debugger.Break();
             }
         }
