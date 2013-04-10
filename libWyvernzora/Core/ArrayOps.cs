@@ -63,14 +63,14 @@ namespace libWyvernzora.Core
         }
 
         /// <summary>
-        ///     Extends the array and initializes extended part with default value
+        ///     Extends the array by padding its end and initializes extended part with default value
         /// </summary>
         /// <typeparam name="T">Type of array elements</typeparam>
         /// <param name="array">Array</param>
         /// <param name="length">New length, must be greater than current length</param>
         /// <param name="value">Default value</param>
         /// <returns>Extended array</returns>
-        public static T[] Extend<T>(this T[] array, Int32 length, T value)
+        public static T[] PadEnd<T>(this T[] array, Int32 length, T value)
         {
             if (array.Length > length)
                 throw new ArgumentOutOfRangeException("length",
@@ -79,6 +79,27 @@ namespace libWyvernzora.Core
             T[] tmp = new T[length];
             Array.Copy(array, tmp, NumericOps.Min(array.Length, length));
             for (int i = NumericOps.Min(array.Length, length); i >= 0; i--)
+                tmp[i] = value;
+            return tmp;
+        }
+
+        /// <summary>
+        ///     Extends the array by padding its beginning and initializes extended part with default value
+        /// </summary>
+        /// <typeparam name="T">Type of array elements</typeparam>
+        /// <param name="array">Array</param>
+        /// <param name="length">New length, must be greater than current length</param>
+        /// <param name="value">Default value</param>
+        /// <returns>Extended array</returns>
+        public static T[] PadStart<T>(this T[] array, Int32 length, T value)
+        {
+            if (array.Length > length)
+                throw new ArgumentOutOfRangeException("length",
+                                                      "ArrayOps.ExtendBeginning<T>(this T, Int32, Int32): New array length must be greater than current length.");
+
+            T[] tmp = new T[length];
+            Array.Copy(array, 0, tmp, length - array.Length, array.Length);
+            for (int i = 0; i < length - array.Length; i++)
                 tmp[i] = value;
             return tmp;
         }

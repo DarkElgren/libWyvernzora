@@ -16,12 +16,21 @@ namespace libWyvernzora.Sandbox
     {
         static void Main(string[] args)
         {
-            WindowsFileSystem wfs = new WindowsFileSystem("G:\\MyPictures");
+            for (int i = 0; i < 10000; i++)
+            {
+                Int64 number = RandomEx.Instance.NextInt64();
 
-            var fso = wfs.GetFileSystemObject("wp\\kanon_shiori.png");
-            var exs = wfs.OpenFileSystemObject(fso, FileAccess.Read);
-            
-            Console.ReadKey();
+                if (number > VInt.MaxValue || number < VInt.MinValue) continue;
+
+                VInt x = new VInt(number);
+
+                Byte[] b = x.Encode();
+
+                VInt y = new VInt(b);
+
+                if (number != y)
+                    System.Diagnostics.Debugger.Break();
+            }
         }
     }
 }

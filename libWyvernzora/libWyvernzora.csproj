@@ -51,6 +51,7 @@
     <Compile Include="Core\DirectIntConv.cs" />
     <Compile Include="Core\NumericOps.cs" />
     <Compile Include="Core\Range.cs" />
+    <Compile Include="Core\VInt.cs" />
     <Compile Include="Cryptography\CRC32.cs" />
     <Compile Include="IO\FileExtListValidator.cs" />
     <Compile Include="IO\FileExtLengthValidator.cs" />
