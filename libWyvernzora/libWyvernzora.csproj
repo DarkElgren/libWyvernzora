@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Collections\EnumeratorEnumerable.cs" />
     <Compile Include="Collections\Indexer.cs" />
+    <Compile Include="Collections\InverseComparer.cs" />
     <Compile Include="Collections\MappedEnumerator.cs" />
     <Compile Include="Collections\PartialList.cs" />
     <Compile Include="Collections\ListStringEx.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Utilities\ActionLock.cs" />
     <Compile Include="Utilities\CodingAssistance.cs" />
     <Compile Include="Utilities\CommandLine.cs" />
+    <Compile Include="Utilities\ConsoleEx.cs" />
     <Compile Include="Utilities\Counter.cs" />
     <Compile Include="Utilities\RandomEx.cs" />
     <Compile Include="Xml\XmlElementActionLock.cs" />

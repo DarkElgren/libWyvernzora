@@ -32,7 +32,7 @@ namespace libWyvernzora.IO.UnifiedFileSystem
     /// <summary>
     ///     libWyvernzora File System Service Interface
     /// </summary>
-    public interface IFileSystem<T> : IDisposable where T : FileSystemObject
+    public interface IFileSystem : IDisposable
     {
         /// <summary>
         /// Gets a value indicating whether the IFileSystemService is readonly.
@@ -42,19 +42,72 @@ namespace libWyvernzora.IO.UnifiedFileSystem
         /// <summary>
         ///     List of all FileSystemObjects of File type.
         /// </summary>
-        IEnumerable<T> Files { get; }
+        IEnumerable<FileSystemObject> Files { get; }
 
         /// <summary>
         ///     Root FileSystemObject of the File System.
         /// </summary>
-        T Root { get; }
+        FileSystemObject Root { get; }
 
         /// <summary>
         ///     Tries to get the FileSystemObject with the specified path.
         /// </summary>
         /// <param name="path">Path of the FileSystemObject.</param>
         /// <returns>A FileSystemObject if found; null otherwise.</returns>
-        T GetFileSystemObject(String path);
+        FileSystemObject GetFileSystemObject(String path);
+
+        /// <summary>
+        /// Tries to open the FileSystemObject as a stream.
+        /// </summary>
+        /// <param name="obj">FileSystemObject to open.</param>
+        /// <param name="mode">FileMode to open FileSystemObject with.</param>
+        /// <returns>StreamEx if successful; null otherwise.</returns>
+        StreamEx OpenFileSystemObject(FileSystemObject obj, FileAccess mode);
+
+        /// <summary>
+        /// Creates a Unified File System Object.
+        /// </summary>
+        /// <param name="path">Path of the FileSystemObject.</param>
+        /// <param name="type">Type of the FileSystemObject.</param>
+        void CreateFileSystemObject(String path, FileSystemObjectType type);
+
+        /// <summary>
+        /// Deletes a FileSystemObject and all its children.
+        /// Does not cause exceptions if the object does not exist.
+        /// </summary>
+        /// <param name="obj">FileSystemObject to delete.</param>
+        void DeleteFileSystemObject(FileSystemObject obj);
+
+        /// <summary>
+        /// Moves the FileSystemObject to a new path.
+        /// </summary>
+        /// <param name="obj">FileSystemObject to move.</param>
+        /// <param name="newPath">New path of the FileSystemObject.</param>
+        void MoveFileSystemObject(FileSystemObject obj, String newPath);
+
+
+        /// <summary>
+        ///     Closes the File System.
+        /// </summary>
+        void Close();
+    }
+
+    /// <summary>
+    ///     libWyvernzora Generic File System Service Interface
+    /// </summary>
+    public interface IFileSystem<T> : IFileSystem where T : FileSystemObject
+    {
+        /// <summary>
+        ///     Root FileSystemObject of the File System.
+        /// </summary>
+        new T Root { get; }
+
+        /// <summary>
+        ///     Tries to get the FileSystemObject with the specified path.
+        /// </summary>
+        /// <param name="path">Path of the FileSystemObject.</param>
+        /// <returns>A FileSystemObject if found; null otherwise.</returns>
+        new T GetFileSystemObject(String path);
 
         /// <summary>
         /// Tries to open the FileSystemObject as a stream.
@@ -63,10 +116,19 @@ namespace libWyvernzora.IO.UnifiedFileSystem
         /// <param name="mode">FileMode to open FileSystemObject with.</param>
         /// <returns>StreamEx if successful; null otherwise.</returns>
         StreamEx OpenFileSystemObject(T obj, FileAccess mode);
-        
+
         /// <summary>
-        ///     Closes the File System.
+        /// Deletes a FileSystemObject and all its children.
+        /// Does not cause exceptions if the object does not exist.
         /// </summary>
-        void Close();
+        /// <param name="obj">FileSystemObject to delete.</param>
+        void DeleteFileSystemObject(T obj);
+
+        /// <summary>
+        /// Moves the FileSystemObject to a new path.
+        /// </summary>
+        /// <param name="obj">FileSystemObject to move.</param>
+        /// <param name="newPath">New path of the FileSystemObject.</param>
+        void MoveFileSystemObject(T obj, String newPath);
     }
 }

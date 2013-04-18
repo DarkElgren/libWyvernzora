@@ -19,25 +19,19 @@ namespace libWyvernzora.Sandbox
         {
             StreamEx ex = new StreamEx("data.bin", FileMode.Create);
 
-            Int32[] array = TestUtilities.GenerateRandomArray(1000);
+            String str =
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquet ullamcorper augue ac blandit. Sed eget est et ante ultricies pulvinar quis nec augue. Pellentesque ac sem lectus, vitae interdum neque. Vestibulum tincidunt, nibh viverra commodo adipiscing, felis quam suscipit libero, nec porta magna neque nec risus. Vestibulum vehicula dolor vel erat ultrices imperdiet. Maecenas vitae nisl in nisi sagittis tempor quis eu justo. Ut ut congue lorem. Nullam sit amet purus ac dui varius molestie.";
 
-            foreach (var i in array) ex.WriteVInt(new VInt(i));
+            ex.WriteString(str);
 
             ex.Position = 0;
 
-            Int32[] array2 = new Int32[1000];
+            String str2 = ex.ReadString();
 
-            for (int i = 0; i < array2.Length; i++)
-            {
-                VInt x = ex.ReadVInt();
-                array2[i] = (Int32)x.Value;
-            }
+            Console.WriteLine(str.Equals(str2));
 
-            for (int i = 0; i < array2.Length; i++)
-            {
-                if (array[i] != array2[i])
-                    System.Diagnostics.Debugger.Break();
-            }
+            Console.ReadLine();
         }
+
     }
 }

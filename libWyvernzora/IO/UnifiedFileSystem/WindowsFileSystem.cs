@@ -27,6 +27,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using libWyvernzora.Collections;
 
 namespace libWyvernzora.IO.UnifiedFileSystem
@@ -103,6 +104,81 @@ namespace libWyvernzora.IO.UnifiedFileSystem
 
         public void Dispose()
         {
+        }
+
+        public void DeleteFileSystemObject(WindowsFileSystemObject obj)
+        {
+            if (CanAccessAbsolutePath(obj.FileSystemInfo.FullName))
+            {
+                if (obj.Type == FileSystemObjectType.File) obj.FileSystemInfo.Delete();
+                else
+                {
+                    Action<String> rm = null;
+                    rm = (@s) =>
+                        {
+                            String[] files = Directory.GetFiles(s);
+                            foreach (var f in files) File.Delete(f);
+
+                            String[] dirs = Directory.GetDirectories(s);
+                            foreach (var d in dirs) rm(d);
+
+                            Directory.Delete(s);
+                        };
+                    rm(obj.FileSystemInfo.FullName);
+                }
+            }
+        }
+
+        public void MoveFileSystemObject(WindowsFileSystemObject obj, string newPath)
+        {
+            throw new NotSupportedException("WindowsFileSystem does not support moving files at this point");
+        }
+
+
+        IEnumerable<FileSystemObject> IFileSystem.Files
+        {
+            get { return Files; }
+        }
+
+        FileSystemObject IFileSystem.Root
+        {
+            get { return Root; }
+        }
+
+        FileSystemObject IFileSystem.GetFileSystemObject(string path)
+        {
+            return GetFileSystemObject(path);
+        }
+
+
+        public StreamEx OpenFileSystemObject(FileSystemObject obj, FileAccess mode)
+        {
+            var wobj = obj as WindowsFileSystemObject;
+            if (wobj == null) throw new ArgumentException("FileSystemObject must be a WindowsFileSystemObject!");
+
+            return OpenFileSystemObject(wobj, mode);
+        }
+
+        public void CreateFileSystemObject(string path, FileSystemObjectType type)
+        {
+            if (type == FileSystemObjectType.Directory) CreateDirectory(path);
+            else CreateFile(path);
+        }
+
+        public void DeleteFileSystemObject(FileSystemObject obj)
+        {
+            var wobj = obj as WindowsFileSystemObject;
+            if (wobj == null) throw new ArgumentException("FileSystemObject must be a WindowsFileSystemObject!");
+            
+            DeleteFileSystemObject(wobj);
+        }
+
+        public void MoveFileSystemObject(FileSystemObject obj, string newPath)
+        {
+            var wobj = obj as WindowsFileSystemObject;
+            if (wobj == null) throw new ArgumentException("FileSystemObject must be a WindowsFileSystemObject!");
+
+            MoveFileSystemObject(wobj, newPath);
         }
 
         #endregion
@@ -220,5 +296,8 @@ namespace libWyvernzora.IO.UnifiedFileSystem
                 queue.Enqueue(root);
             }
         }
+
+
+
     }
 }

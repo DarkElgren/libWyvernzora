@@ -25,6 +25,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using libWyvernzora.Core;
 
 namespace libWyvernzora.IO
@@ -216,6 +217,18 @@ namespace libWyvernzora.IO
         }
 
         /// <summary>
+        /// Reads next UTF-8 encoded string, whose length is specified by a VInt
+        /// before it.
+        /// </summary>
+        /// <returns></returns>
+        public String ReadString()
+        {
+            VInt length = ReadVInt();
+            Byte[] temp = ReadBytes(length);
+            return new string(Encoding.UTF8.GetChars(temp));
+        }
+
+        /// <summary>
         ///     Writes array of bytes to the StreamEx.
         /// </summary>
         /// <param name="b">Byte array to write.</param>
@@ -302,6 +315,18 @@ namespace libWyvernzora.IO
         public void WriteVInt(VInt b, Int32 width = -1)
         {
             WriteBytes(b.Encode(width));
+        }
+
+        /// <summary>
+        /// Writes a UTF-8 encoded string to the stream.
+        /// Also writes a VInt with the string length.
+        /// </summary>
+        /// <param name="str">String to write.</param>
+        public void WriteString(String str)
+        {
+            Byte[] temp = Encoding.UTF8.GetBytes(str);
+            WriteVInt(new VInt(temp.Length));
+            WriteBytes(temp);
         }
 
         /// <summary>
@@ -414,7 +439,7 @@ namespace libWyvernzora.IO
         public override void Close()
         {
             if (closed) throw new InvalidOperationException("Stream already closed!");
-            Dispose();
+            stream.Close();
             closed = true;
         }
 

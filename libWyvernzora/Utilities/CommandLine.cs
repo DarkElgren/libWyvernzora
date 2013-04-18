@@ -90,6 +90,30 @@ namespace libWyvernzora.Utilities
             public Type Type { get; private set; }
         }
 
+        /// <summary>
+        /// Exception for unexpected command line arguments.
+        /// </summary>
+        public class CommandLineArgumentException : Exception
+        {
+            /// <summary>
+            /// Constructor.
+            /// Initializes a new instance.
+            /// </summary>
+            /// <param name="optionName"></param>
+            /// <param name="message"></param>
+            /// <param name="args"></param>
+            public CommandLineArgumentException(String optionName, String message, params Object[] args)
+                : base(String.Format(message, args))
+            {
+                ArgumentName = optionName;
+            }
+
+            /// <summary>
+            /// Gets the argument name associated with the error.
+            /// </summary>
+            public String ArgumentName { get; set; }
+        }
+
         #endregion
 
         /// <summary>
@@ -198,6 +222,84 @@ namespace libWyvernzora.Utilities
             }
         }
 
+        /// <summary>
+        /// Gets the number of arguments.
+        /// </summary>
+        public Int32 Count
+        { get { return Arguments.Length; } }
+
+
+        /// <summary>
+        /// Gets an array of argument strings.
+        /// </summary>
+        /// <returns></returns>
+        public String[] GetArguments()
+        {
+            return (from a in Arguments where a.Type == Type.Argument select a.Name).ToArray();
+        }
+
+        /// <summary>
+        /// Gets parameters of an option, or default values if the option
+        /// does not exist.
+        /// </summary>
+        /// <param name="optionName">Name of the option.</param>
+        /// <param name="def">Default value, defaults to null.</param>
+        /// <returns></returns>
+        public String[] GetOptionParams(String optionName, String[] def = null)
+        {
+            Argument arg =
+                Arguments.FirstOrDefault(a => StringComparer.CurrentCultureIgnoreCase.Equals(optionName, a.Name));
+
+            if (arg == null && def == null)
+                throw new CommandLineArgumentException(optionName, "Could not find the required option.");
+            return def ?? arg.Arguments;
+        }
+
+        /// <summary>
+        /// Gets the first parameter of an option.
+        /// </summary>
+        /// <param name="optionName"></param>
+        /// <param name="def"></param>
+        /// <returns></returns>
+        public String GetOptionSrting(String optionName, String def = null)
+        {
+            Argument arg =
+                Arguments.FirstOrDefault(a => StringComparer.CurrentCultureIgnoreCase.Equals(optionName, a.Name));
+            if (def == null)
+            {
+                if (arg == null)
+                    throw new CommandLineArgumentException(optionName, "Could not find the required option.");
+                if (arg.Arguments.Length == 0)
+                    throw new CommandLineArgumentException(optionName, "Expected at least one parameter for the option.");
+            }
+            else
+            {
+                if (arg != null && arg.Arguments.Length > 0) return arg.Arguments[0];
+                return def;
+            }
+
+            return arg.Arguments[0];
+        }
+
+        /// <summary>
+        /// Gets the first parameted of an option of as an integer.
+        /// </summary>
+        /// <param name="optionName"></param>
+        /// <param name="def"></param>
+        /// <returns></returns>
+        public Int32 GetOptionInt(String optionName, Int32 def = 0)
+        {
+            Argument arg =
+    Arguments.FirstOrDefault(a => StringComparer.CurrentCultureIgnoreCase.Equals(optionName, a.Name));
+
+            if (arg == null) return def;
+            if (arg.Arguments.Length == 0) 
+                throw new CommandLineArgumentException(optionName, "Expected an integer parameter for the option.");
+            int r;
+            if (!Int32.TryParse(arg.Arguments[0], out r)) 
+                throw new CommandLineArgumentException(optionName, "Expected an integer parameter but could not parse it.");
+            return r;
+        }
 
         private static String DescapeQuotes(String str)
         {
