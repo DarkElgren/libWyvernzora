@@ -130,7 +130,7 @@ namespace libWyvernzora.Cryptography
         protected override byte[] HashFinal()
         {
             hash = ~hash;
-            return hash.ToBinary(BitSequence.BigEndian);
+            return hash.ToBinary(BitOrder.BigEndian);
         }
 
         #endregion

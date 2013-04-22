@@ -73,7 +73,7 @@ namespace libWyvernzora.Core
             Int32 w = GetWidth(data);
             if (data.Length < w) throw new ArgumentException("Not enough bytes to decode!");
 
-            UInt64 temp = data.PadStart<byte>(8, 0).ToUInt64(0, BitSequence.BigEndian);
+            UInt64 temp = data.PadStart<byte>(8, 0).ToUInt64(0, BitOrder.BigEndian);
 
             width = w * 8;
             value = BitOps.PadS64(temp, width - w);
@@ -226,7 +226,7 @@ namespace libWyvernzora.Core
             UInt64 temp = BitOps.ShrinkSigned(value, bwidth);
             temp |= 1UL << (bwidth);
 
-            return temp.ToBinary(BitSequence.BigEndian).SubArray(8 - w / 8);
+            return temp.ToBinary(BitOrder.BigEndian).SubArray(8 - w / 8);
         }
 
         #endregion

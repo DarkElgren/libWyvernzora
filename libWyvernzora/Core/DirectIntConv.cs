@@ -31,9 +31,15 @@ namespace libWyvernzora.Core
     /// <summary>
     ///     Represents "Endianness" of a number value
     /// </summary>
-    public enum BitSequence
+    public enum BitOrder
     {
+        /// <summary>
+        /// Represents LittleEndian bit order.
+        /// </summary>
         LittleEndian = 0,
+        /// <summary>
+        /// Represents BigEndian bit order.
+        /// </summary>
         BigEndian = 1
     }
 
@@ -192,13 +198,13 @@ namespace libWyvernzora.Core
         /// <param name="src">Integer to break</param>
         /// <param name="seq">Byte order of the resulting array</param>
         /// <returns>An array of bytes representing the integer</returns>
-        public static Byte[] ToBinary(this UInt16 src, BitSequence seq = BitSequence.LittleEndian)
+        public static Byte[] ToBinary(this UInt16 src, BitOrder seq = BitOrder.LittleEndian)
         {
             Byte[] result = new Byte[2];
             result[1] = Convert.ToByte(src & 0xFF);
             result[0] = Convert.ToByte((src >> 8) & 0xFF);
 
-            if (seq == BitSequence.LittleEndian)
+            if (seq == BitOrder.LittleEndian)
             {
                 Array.Reverse(result);
             }
@@ -212,7 +218,7 @@ namespace libWyvernzora.Core
         /// <param name="src">Integer to break</param>
         /// <param name="seq">Byte order of the resulting array</param>
         /// <returns>An array of bytes representing the integer</returns>
-        public static Byte[] ToBinary(this Int16 src, BitSequence seq = BitSequence.LittleEndian)
+        public static Byte[] ToBinary(this Int16 src, BitOrder seq = BitOrder.LittleEndian)
         {
             return Unsign(src).ToBinary(seq);
         }
@@ -224,7 +230,7 @@ namespace libWyvernzora.Core
         /// <param name="src">Integer to break</param>
         /// <param name="seq">Byte order of the resulting array</param>
         /// <returns>An array of bytes representing the integer</returns>
-        public static Byte[] ToBinary(this UInt32 src, BitSequence seq = BitSequence.LittleEndian)
+        public static Byte[] ToBinary(this UInt32 src, BitOrder seq = BitOrder.LittleEndian)
         {
             Byte[] result = new Byte[4];
             for (int i = 0; i < 4; i++)
@@ -233,7 +239,7 @@ namespace libWyvernzora.Core
                 src >>= 8;
             }
 
-            if (seq == BitSequence.LittleEndian)
+            if (seq == BitOrder.LittleEndian)
             {
                 Array.Reverse(result);
             }
@@ -247,7 +253,7 @@ namespace libWyvernzora.Core
         /// <param name="src">Integer to break</param>
         /// <param name="seq">Byte order of the resulting array</param>
         /// <returns>An array of bytes representing the integer</returns>
-        public static Byte[] ToBinary(this Int32 src, BitSequence seq = BitSequence.LittleEndian)
+        public static Byte[] ToBinary(this Int32 src, BitOrder seq = BitOrder.LittleEndian)
         {
             return Unsign(src).ToBinary(seq);
         }
@@ -259,7 +265,7 @@ namespace libWyvernzora.Core
         /// <param name="src">Integer to break</param>
         /// <param name="seq">Byte order of the resulting array</param>
         /// <returns>An array of bytes representing the integer</returns>
-        public static Byte[] ToBinary(this UInt64 src, BitSequence seq = BitSequence.LittleEndian)
+        public static Byte[] ToBinary(this UInt64 src, BitOrder seq = BitOrder.LittleEndian)
         {
             Byte[] result = new Byte[8];
             for (int i = 0; i < 8; i++)
@@ -268,7 +274,7 @@ namespace libWyvernzora.Core
                 src >>= 8;
             }
 
-            if (seq == BitSequence.LittleEndian)
+            if (seq == BitOrder.LittleEndian)
             {
                 Array.Reverse(result);
             }
@@ -282,7 +288,7 @@ namespace libWyvernzora.Core
         /// <param name="src">Integer to break</param>
         /// <param name="seq">Byte order of the resulting array</param>
         /// <returns>An array of bytes representing the integer</returns>
-        public static Byte[] ToBinary(this Int64 src, BitSequence seq = BitSequence.LittleEndian)
+        public static Byte[] ToBinary(this Int64 src, BitOrder seq = BitOrder.LittleEndian)
         {
             return Unsign(src).ToBinary(seq);
         }
@@ -294,7 +300,7 @@ namespace libWyvernzora.Core
         /// <param name="src">Integer to break</param>
         /// <param name="seq">Byte order of the resulting array</param>
         /// <returns>An array of bytes representing the integer</returns>
-        public static Byte[] ToBinary(this Single src, BitSequence seq = BitSequence.LittleEndian)
+        public static Byte[] ToBinary(this Single src, BitOrder seq = BitOrder.LittleEndian)
         {
             MidSingle m = MidSingle.Init();
             m.singleValue = src;
@@ -308,7 +314,7 @@ namespace libWyvernzora.Core
         /// <param name="src">Integer to break</param>
         /// <param name="seq">Byte order of the resulting array</param>
         /// <returns>An array of bytes representing the integer</returns>
-        public static Byte[] ToBinary(this Double src, BitSequence seq = BitSequence.LittleEndian)
+        public static Byte[] ToBinary(this Double src, BitOrder seq = BitOrder.LittleEndian)
         {
             MidDouble m = MidDouble.Init();
             m.doubleValue = src;
@@ -323,13 +329,13 @@ namespace libWyvernzora.Core
         /// <param name="offset">Byte offset of the integer</param>
         /// <param name="seq">Byte order of the array</param>
         /// <returns>Integer assembled from the byte array</returns>
-        public static UInt16 ToUInt16(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
+        public static UInt16 ToUInt16(this Byte[] src, Int32 offset, BitOrder seq = BitOrder.LittleEndian)
         {
             if (offset < 0 || offset > src.Length - 2)
                 throw new ArgumentOutOfRangeException("offset", "Byte[].ToUInt16(): Offset out of source array bounds");
 
             UInt16 result;
-            if (seq == BitSequence.LittleEndian)
+            if (seq == BitOrder.LittleEndian)
             {
                 result = src[0];
                 result |= Convert.ToUInt16(Convert.ToUInt16(src[1]) << 8);
@@ -351,7 +357,7 @@ namespace libWyvernzora.Core
         /// <param name="offset">Byte offset of the integer</param>
         /// <param name="seq">Byte order of the array</param>
         /// <returns>Integer assembled from the byte array</returns>
-        public static Int16 ToInt16(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
+        public static Int16 ToInt16(this Byte[] src, Int32 offset, BitOrder seq = BitOrder.LittleEndian)
         {
             if (offset < 0 || offset > src.Length - 2)
                 throw new ArgumentOutOfRangeException("offset", "Byte[].ToInt16(): Offset out of source array bounds");
@@ -367,13 +373,13 @@ namespace libWyvernzora.Core
         /// <param name="offset">Byte offset of the integer</param>
         /// <param name="seq">Byte order of the array</param>
         /// <returns>Integer assembled from the byte array</returns>
-        public static UInt32 ToUInt32(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
+        public static UInt32 ToUInt32(this Byte[] src, Int32 offset, BitOrder seq = BitOrder.LittleEndian)
         {
             if (offset < 0 || offset > src.Length - 4)
                 throw new ArgumentOutOfRangeException("offset", "Byte[].ToUInt32(): Offset out of source array bounds");
 
             UInt32 result;
-            if (seq == BitSequence.LittleEndian)
+            if (seq == BitOrder.LittleEndian)
             {
                 result = src[0];
                 for (int i = 1; i < 4; i++)
@@ -400,7 +406,7 @@ namespace libWyvernzora.Core
         /// <param name="offset">Byte offset of the integer</param>
         /// <param name="seq">Byte order of the array</param>
         /// <returns>Integer assembled from the byte array</returns>
-        public static Int32 ToInt32(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
+        public static Int32 ToInt32(this Byte[] src, Int32 offset, BitOrder seq = BitOrder.LittleEndian)
         {
             if (offset < 0 || offset > src.Length - 4)
                 throw new ArgumentOutOfRangeException("offset", "Byte[].ToInt32(): Offset out of source array bounds");
@@ -416,13 +422,13 @@ namespace libWyvernzora.Core
         /// <param name="offset">Byte offset of the integer</param>
         /// <param name="seq">Byte order of the array</param>
         /// <returns>Integer assembled from the byte array</returns>
-        public static UInt64 ToUInt64(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
+        public static UInt64 ToUInt64(this Byte[] src, Int32 offset, BitOrder seq = BitOrder.LittleEndian)
         {
             if (offset < 0 || offset > src.Length - 8)
                 throw new ArgumentOutOfRangeException("offset", "Byte[].ToUInt64(): Offset out of source array bounds");
 
             UInt64 result;
-            if (seq == BitSequence.LittleEndian)
+            if (seq == BitOrder.LittleEndian)
             {
                 result = src[0];
                 for (int i = 1; i < 8; i++)
@@ -450,7 +456,7 @@ namespace libWyvernzora.Core
         /// <param name="offset">Byte offset of the integer</param>
         /// <param name="seq">Byte order of the array</param>
         /// <returns>Integer assembled from the byte array</returns>
-        public static Int64 ToInt64(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
+        public static Int64 ToInt64(this Byte[] src, Int32 offset, BitOrder seq = BitOrder.LittleEndian)
         {
             if (offset < 0 || offset > src.Length - 8)
                 throw new ArgumentOutOfRangeException("offset", "Byte[].ToInt64(): Offset out of source array bounds");
@@ -466,7 +472,7 @@ namespace libWyvernzora.Core
         /// <param name="offset">Byte offset of the integer</param>
         /// <param name="seq">Byte order of the array</param>
         /// <returns>Integer assembled from the byte array</returns>
-        public static Single ToSingle(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
+        public static Single ToSingle(this Byte[] src, Int32 offset, BitOrder seq = BitOrder.LittleEndian)
         {
             if (offset < 0 || offset > src.Length - 4)
                 throw new ArgumentOutOfRangeException("offset", "Byte[].ToSingle(): Offset out of source array bounds");
@@ -484,7 +490,7 @@ namespace libWyvernzora.Core
         /// <param name="offset">Byte offset of the integer</param>
         /// <param name="seq">Byte order of the array</param>
         /// <returns>Integer assembled from the byte array</returns>
-        public static Double ToDouble(this Byte[] src, Int32 offset, BitSequence seq = BitSequence.LittleEndian)
+        public static Double ToDouble(this Byte[] src, Int32 offset, BitOrder seq = BitOrder.LittleEndian)
         {
             if (offset < 0 || offset > src.Length - 4)
                 throw new ArgumentOutOfRangeException("offset", "Byte[].ToDouble(): Offset out of source array bounds");

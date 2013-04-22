@@ -150,7 +150,7 @@ namespace libWyvernzora.IO
         ///     Reads next unsigned 16-bit integer from stream.
         /// </summary>
         /// <returns>16-bit unsigned integer.</returns>
-        public UInt16 ReadUInt16(BitSequence seq = BitSequence.LittleEndian)
+        public UInt16 ReadUInt16(BitOrder seq = BitOrder.LittleEndian)
         {
             return ReadBytes(2).ToUInt16(0, seq);
         }
@@ -159,7 +159,7 @@ namespace libWyvernzora.IO
         ///     Reads next signed 16-bit integer from stream.
         /// </summary>
         /// <returns>16-bit signed integer.</returns>
-        public Int16 ReadInt16(BitSequence seq = BitSequence.LittleEndian)
+        public Int16 ReadInt16(BitOrder seq = BitOrder.LittleEndian)
         {
             return ReadBytes(2).ToInt16(0, seq);
         }
@@ -168,7 +168,7 @@ namespace libWyvernzora.IO
         ///     Reads next unsigned 32-bit integer from stream.
         /// </summary>
         /// <returns>32-bit unsigned integer.</returns>
-        public UInt32 ReadUInt32(BitSequence seq = BitSequence.LittleEndian)
+        public UInt32 ReadUInt32(BitOrder seq = BitOrder.LittleEndian)
         {
             return ReadBytes(4).ToUInt32(0, seq);
         }
@@ -177,7 +177,7 @@ namespace libWyvernzora.IO
         ///     Reads next signed 32-bit integer from stream.
         /// </summary>
         /// <returns>32-bit signed integer.</returns>
-        public Int32 ReadInt32(BitSequence seq = BitSequence.LittleEndian)
+        public Int32 ReadInt32(BitOrder seq = BitOrder.LittleEndian)
         {
             return ReadBytes(4).ToInt32(0, seq);
         }
@@ -186,7 +186,7 @@ namespace libWyvernzora.IO
         ///     Reads next unsigned 64-bit integer from stream.
         /// </summary>
         /// <returns>64-bit unsigned integer.</returns>
-        public UInt64 ReadUInt64(BitSequence seq = BitSequence.LittleEndian)
+        public UInt64 ReadUInt64(BitOrder seq = BitOrder.LittleEndian)
         {
             return ReadBytes(8).ToUInt64(0, seq);
         }
@@ -195,7 +195,7 @@ namespace libWyvernzora.IO
         ///     Reads next signed 64-bit integer from stream.
         /// </summary>
         /// <returns>64-bit signed integer.</returns>
-        public Int64 ReadInt64(BitSequence seq = BitSequence.LittleEndian)
+        public Int64 ReadInt64(BitOrder seq = BitOrder.LittleEndian)
         {
             return ReadBytes(8).ToInt64(0, seq);
         }
@@ -251,7 +251,7 @@ namespace libWyvernzora.IO
         /// </summary>
         /// <param name="b">16-bit unsigned integer.</param>
         /// <param name="seq">Byte sequence a.k.a endianness.</param>
-        public void WriteUInt16(UInt16 b, BitSequence seq = BitSequence.LittleEndian)
+        public void WriteUInt16(UInt16 b, BitOrder seq = BitOrder.LittleEndian)
         {
             Write(b.ToBinary(seq), 0, 2);
         }
@@ -261,7 +261,7 @@ namespace libWyvernzora.IO
         /// </summary>
         /// <param name="b">16-bit signed integer.</param>
         /// <param name="seq">Byte sequence a.k.a endianness.</param>
-        public void WriteInt16(Int16 b, BitSequence seq = BitSequence.LittleEndian)
+        public void WriteInt16(Int16 b, BitOrder seq = BitOrder.LittleEndian)
         {
             Write(b.ToBinary(seq), 0, 2);
         }
@@ -271,7 +271,7 @@ namespace libWyvernzora.IO
         /// </summary>
         /// <param name="b">32-bit unsigned integer.</param>
         /// <param name="seq">Byte sequence a.k.a endianness.</param>
-        public void WriteUInt32(UInt32 b, BitSequence seq = BitSequence.LittleEndian)
+        public void WriteUInt32(UInt32 b, BitOrder seq = BitOrder.LittleEndian)
         {
             Write(b.ToBinary(seq), 0, 4);
         }
@@ -281,7 +281,7 @@ namespace libWyvernzora.IO
         /// </summary>
         /// <param name="b">32-bit signed integer.</param>
         /// <param name="seq">Byte sequence a.k.a endianness.</param>
-        public void WriteInt32(Int32 b, BitSequence seq = BitSequence.LittleEndian)
+        public void WriteInt32(Int32 b, BitOrder seq = BitOrder.LittleEndian)
         {
             Write(b.ToBinary(seq), 0, 4);
         }
@@ -291,7 +291,7 @@ namespace libWyvernzora.IO
         /// </summary>
         /// <param name="b">64-bit unsigned integer.</param>
         /// <param name="seq">Byte sequence a.k.a endianness.</param>
-        public void WriteUInt64(UInt64 b, BitSequence seq = BitSequence.LittleEndian)
+        public void WriteUInt64(UInt64 b, BitOrder seq = BitOrder.LittleEndian)
         {
             Write(b.ToBinary(seq), 0, 8);
         }
@@ -301,7 +301,7 @@ namespace libWyvernzora.IO
         /// </summary>
         /// <param name="b">64-bit signed integer.</param>
         /// <param name="seq">Byte sequence a.k.a endianness.</param>
-        public void WriteInt64(Int64 b, BitSequence seq = BitSequence.LittleEndian)
+        public void WriteInt64(Int64 b, BitOrder seq = BitOrder.LittleEndian)
         {
             Write(b.ToBinary(seq), 0, 8);
         }
