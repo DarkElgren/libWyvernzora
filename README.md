@@ -8,7 +8,7 @@ A very big chunk of code in libWyvernzora is re-implementation of Firefly Framew
 Right now this library is still work in progress.
 
 Here is a list of ideas already implemented in the **libWyvernzora**:
- - Bit conversion supporting both Little Endian and Big Endian ( _**libWyvernzora.Core.DirectIntConv** class_ )
+ - [Bit conversion supporting both Little Endian and Big Endian](Documentation/BitConversion.md) ( _**libWyvernzora.Core.DirectIntConv** class_ )
  - Advanced Enumerators ( _**libWyvernzora.Collections** namespace_ )
  - Generic String ( _**libWyvernzora.Collections.ListStringEx<T>** class_ )
  - Partial List ( _**libWyvernzora.Collections.PartialList<T>** class_ )
