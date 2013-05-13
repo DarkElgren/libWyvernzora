@@ -1,5 +1,5 @@
 ﻿// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// libWyvernzora/InverseComparer.cs
+// libWyvernzora/Pair.cs
 // --------------------------------------------------------------------------------
 // Copyright (c) 2013, Jieni Luchijinzhou a.k.a Aragorn Wyvernzora
 // 
@@ -24,58 +24,54 @@
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 using System;
-using System.Collections.Generic;
 
-namespace libWyvernzora.Collections
+namespace libWyvernzora.Core
 {
     /// <summary>
-    ///     Comparer wrapper that inverts compare results.
+    ///     Represents a pair of objects.
     /// </summary>
-    /// <typeparam name="T">Type of compared items.</typeparam>
-    public class InverseComparer<T> : IComparer<T>
+    /// <typeparam name="TFirst">Type of the first object in pair</typeparam>
+    /// <typeparam name="TSecond">Type of the second object in pair</typeparam>
+    public class Pair<TFirst, TSecond> : ICloneable, IEquatable<Pair<TFirst, TSecond>>
     {
         /// <summary>
-        ///     Constructor.
-        ///     Initializes a new instance.
+        ///     Constructor
         /// </summary>
-        /// <param name="comparer">Comparer to </param>
-        public InverseComparer(IComparer<T> comparer)
+        /// <param name="f">First object in the pair</param>
+        /// <param name="s">Second object in the pair</param>
+        public Pair(TFirst f, TSecond s)
         {
-            if (comparer == null)
-                throw new ArgumentNullException("comparer");
-            OriginalComparer = comparer;
+            First = f;
+            Second = s;
         }
 
         /// <summary>
-        ///     Gets the original comparer wrapped into this InverseComparer.
+        ///     First object in the pair
         /// </summary>
-        public IComparer<T> OriginalComparer { get; private set; }
+        public TFirst First { get; set; }
 
-        #region IComparer<T> Members
+        /// <summary>
+        ///     Second object in the pair
+        /// </summary>
+        public TSecond Second { get; set; }
 
-        public int Compare(T x, T y)
+        /// <summary>
+        ///     Clones the pair.
+        /// </summary>
+        /// <returns>A shallow copy of the pair object</returns>
+        public object Clone()
         {
-            return -OriginalComparer.Compare(x, y);
+            return new Pair<TFirst, TSecond>(First, Second);
         }
 
-        #endregion
-    }
-
-    /// <summary>
-    /// Static class for IComparer.Invert method.
-    /// </summary>
-    public static class ComparerInverter
-    {
         /// <summary>
-        /// Inverts the IComparer.
+        ///     Checks whether two pairs are the same
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="original"></param>
+        /// <param name="other"></param>
         /// <returns></returns>
-        public static IComparer<T> Invert<T>(this IComparer<T> original)
+        public bool Equals(Pair<TFirst, TSecond> other)
         {
-            InverseComparer<T> inverse = original as InverseComparer<T>;
-            return inverse == null ? new InverseComparer<T>(original) : inverse.OriginalComparer;
+            return First.Equals(other.First) && Second.Equals(other.Second);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// libWyvernzora/InverseComparer.cs
+// libWyvernzora/MappedComparer.cs
 // --------------------------------------------------------------------------------
 // Copyright (c) 2013, Jieni Luchijinzhou a.k.a Aragorn Wyvernzora
 // 
@@ -29,53 +29,46 @@ using System.Collections.Generic;
 namespace libWyvernzora.Collections
 {
     /// <summary>
-    ///     Comparer wrapper that inverts compare results.
+    ///     IComparer implementation that maps input values to other values before
+    ///     comparing them.
     /// </summary>
-    /// <typeparam name="T">Type of compared items.</typeparam>
-    public class InverseComparer<T> : IComparer<T>
+    /// <typeparam name="TInput">Type of input values.</typeparam>
+    /// <typeparam name="TMap">Type of mapped values.</typeparam>
+    public class MappedComparer<TInput, TMap> : IComparer<TInput>
     {
+        private readonly Func<TInput, TMap> map;
+        private readonly IComparer<TMap> mapComparer;
+
         /// <summary>
         ///     Constructor.
         ///     Initializes a new instance.
         /// </summary>
-        /// <param name="comparer">Comparer to </param>
-        public InverseComparer(IComparer<T> comparer)
+        /// <param name="map">Mapping function.</param>
+        public MappedComparer(Func<TInput, TMap> map)
+            : this(map, Comparer<TMap>.Default)
         {
-            if (comparer == null)
-                throw new ArgumentNullException("comparer");
-            OriginalComparer = comparer;
         }
 
         /// <summary>
-        ///     Gets the original comparer wrapped into this InverseComparer.
+        ///     Constructor.
+        ///     Initializes a new instance.
         /// </summary>
-        public IComparer<T> OriginalComparer { get; private set; }
-
-        #region IComparer<T> Members
-
-        public int Compare(T x, T y)
+        /// <param name="map">Mapping function.</param>
+        /// <param name="mapComparer">IComparer for comparing mapped values.</param>
+        public MappedComparer(Func<TInput, TMap> map, IComparer<TMap> mapComparer)
         {
-            return -OriginalComparer.Compare(x, y);
+            if (map == null)
+                throw new ArgumentNullException("map");
+            if (mapComparer == null)
+                throw new ArgumentNullException("mapComparer");
+
+            this.map = map;
+            this.mapComparer = mapComparer;
         }
 
-        #endregion
-    }
-
-    /// <summary>
-    /// Static class for IComparer.Invert method.
-    /// </summary>
-    public static class ComparerInverter
-    {
-        /// <summary>
-        /// Inverts the IComparer.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="original"></param>
-        /// <returns></returns>
-        public static IComparer<T> Invert<T>(this IComparer<T> original)
+        public int Compare(TInput x, TInput y)
         {
-            InverseComparer<T> inverse = original as InverseComparer<T>;
-            return inverse == null ? new InverseComparer<T>(original) : inverse.OriginalComparer;
+            return mapComparer.Compare(map(x), map(y));
         }
     }
 }

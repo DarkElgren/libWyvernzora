@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libWyvernzora.Sandbox.WinFo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libWyvernzora.WinForms", "libWyvernzora.WinForms\libWyvernzora.WinForms.csproj", "{6CF7B624-7C63-4C58-82A6-DF9E3BC3E5E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libWyvernzora.AI", "libWyvernzora.AI\libWyvernzora.AI.csproj", "{DD6A373B-D765-4B50-9712-7B8D3F4A848F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{6CF7B624-7C63-4C58-82A6-DF9E3BC3E5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CF7B624-7C63-4C58-82A6-DF9E3BC3E5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CF7B624-7C63-4C58-82A6-DF9E3BC3E5E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD6A373B-D765-4B50-9712-7B8D3F4A848F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD6A373B-D765-4B50-9712-7B8D3F4A848F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD6A373B-D765-4B50-9712-7B8D3F4A848F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD6A373B-D765-4B50-9712-7B8D3F4A848F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

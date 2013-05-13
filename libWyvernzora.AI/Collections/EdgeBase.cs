@@ -1,5 +1,5 @@
 ﻿// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// libWyvernzora/InverseComparer.cs
+// libWyvernzora/EdgeBase.cs
 // --------------------------------------------------------------------------------
 // Copyright (c) 2013, Jieni Luchijinzhou a.k.a Aragorn Wyvernzora
 // 
@@ -24,58 +24,46 @@
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 using System;
-using System.Collections.Generic;
+
+// ReSharper disable CheckNamespace
 
 namespace libWyvernzora.Collections
 {
     /// <summary>
-    ///     Comparer wrapper that inverts compare results.
+    ///     Represents an edge connecting two nodes in a GraphBase.
     /// </summary>
-    /// <typeparam name="T">Type of compared items.</typeparam>
-    public class InverseComparer<T> : IComparer<T>
+    /// <typeparam name="TNode">Type of nodes in the graph base.</typeparam>
+    public interface IEdge<out TNode> where TNode : INode
     {
         /// <summary>
-        ///     Constructor.
-        ///     Initializes a new instance.
+        ///     When implemented, gets the graph this edge belongs to.
         /// </summary>
-        /// <param name="comparer">Comparer to </param>
-        public InverseComparer(IComparer<T> comparer)
-        {
-            if (comparer == null)
-                throw new ArgumentNullException("comparer");
-            OriginalComparer = comparer;
-        }
+        IGraph<TNode> Graph { get; }
 
         /// <summary>
-        ///     Gets the original comparer wrapped into this InverseComparer.
+        ///     When implemented, gets the origin node of the edge.
         /// </summary>
-        public IComparer<T> OriginalComparer { get; private set; }
+        TNode Origin { get; }
 
-        #region IComparer<T> Members
-
-        public int Compare(T x, T y)
-        {
-            return -OriginalComparer.Compare(x, y);
-        }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// Static class for IComparer.Invert method.
-    /// </summary>
-    public static class ComparerInverter
-    {
         /// <summary>
-        /// Inverts the IComparer.
+        ///     When implemented, gets the destination node of the edge.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="original"></param>
-        /// <returns></returns>
-        public static IComparer<T> Invert<T>(this IComparer<T> original)
-        {
-            InverseComparer<T> inverse = original as InverseComparer<T>;
-            return inverse == null ? new InverseComparer<T>(original) : inverse.OriginalComparer;
-        }
+        TNode Destination { get; }
+
+        /// <summary>
+        ///     When implemented, gets the weight of the edge.
+        ///     If the IsWeighted property is false, returns 1.0.
+        /// </summary>
+        Double Weight { get; set; }
+
+        /// <summary>
+        ///     When implemented, gets a value indicating whether the edge is weighted.
+        /// </summary>
+        Boolean IsWeighted { get; }
+
+        /// <summary>
+        ///     When implemented, gets a value indicating whether the edge is directed.
+        /// </summary>
+        Boolean IsDirected { get; }
     }
 }

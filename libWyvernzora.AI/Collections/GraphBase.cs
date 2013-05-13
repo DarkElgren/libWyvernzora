@@ -1,5 +1,5 @@
 ﻿// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// libWyvernzora/InverseComparer.cs
+// libWyvernzora/GraphBase.cs
 // --------------------------------------------------------------------------------
 // Copyright (c) 2013, Jieni Luchijinzhou a.k.a Aragorn Wyvernzora
 // 
@@ -23,59 +23,47 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-using System;
 using System.Collections.Generic;
 
+// ReSharper disable CheckNamespace
 namespace libWyvernzora.Collections
 {
     /// <summary>
-    ///     Comparer wrapper that inverts compare results.
+    ///     Represents a graph structure.
     /// </summary>
-    /// <typeparam name="T">Type of compared items.</typeparam>
-    public class InverseComparer<T> : IComparer<T>
+    public interface IGraph<out TNode> where TNode : INode
     {
         /// <summary>
-        ///     Constructor.
-        ///     Initializes a new instance.
+        ///     When implemented, gets the collection of graph nodes.
         /// </summary>
-        /// <param name="comparer">Comparer to </param>
-        public InverseComparer(IComparer<T> comparer)
-        {
-            if (comparer == null)
-                throw new ArgumentNullException("comparer");
-            OriginalComparer = comparer;
-        }
+        IEnumerable<TNode> Nodes { get; }
 
         /// <summary>
-        ///     Gets the original comparer wrapped into this InverseComparer.
+        ///     When implemented, gets the collection of graph edges.
         /// </summary>
-        public IComparer<T> OriginalComparer { get; private set; }
+        IEnumerable<IEdge<INode>> Edges { get; }
 
-        #region IComparer<T> Members
-
-        public int Compare(T x, T y)
-        {
-            return -OriginalComparer.Compare(x, y);
-        }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// Static class for IComparer.Invert method.
-    /// </summary>
-    public static class ComparerInverter
-    {
         /// <summary>
-        /// Inverts the IComparer.
+        ///     When implemented, gets collection of outgoing edges for a node.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="original"></param>
+        /// <param name="node">Graph node whose outgoing edges to get.</param>
+        /// <returns>IEnumerable of graph edges.</returns>
+        IEnumerable<IEdge<INode>> GetEdges(INode node);
+
+        /// <summary>
+        ///     When implemented, gets collection of adjacent nodes for a node.
+        /// </summary>
+        /// <param name="node"></param>
         /// <returns></returns>
-        public static IComparer<T> Invert<T>(this IComparer<T> original)
-        {
-            InverseComparer<T> inverse = original as InverseComparer<T>;
-            return inverse == null ? new InverseComparer<T>(original) : inverse.OriginalComparer;
-        }
+        IEnumerable<TNode> GetAdjacentNodes(INode node);
+
+        /// <summary>
+        ///     When implemented, gets a specific edge from the graph.
+        ///     If the edge does not exist, returns null.
+        /// </summary>
+        /// <param name="from">Starting node of the edge.</param>
+        /// <param name="to">Ending node of the edge.</param>
+        /// <returns>IEdge if the edge is found; null otherwise.</returns>
+        IEdge<TNode> GetEdge(INode from, INode to);
     }
 }

@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E09B6BFB-E01E-4054-BC17-29544E87C25D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{DD6A373B-D765-4B50-9712-7B8D3F4A848F}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>libWyvernzora.Sandbox</RootNamespace>
-    <AssemblyName>libWyvernzora.Sandbox</AssemblyName>
+    <RootNamespace>libWyvernzora.AI</RootNamespace>
+    <AssemblyName>libWyvernzora.AI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,17 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GridGraph.cs" />
-    <Compile Include="GridNode.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Collections\EdgeBase.cs" />
+    <Compile Include="Collections\GraphBase.cs" />
+    <Compile Include="Collections\MappedComparer.cs" />
+    <Compile Include="Collections\NodeBase.cs" />
+    <Compile Include="Pathfinding\DijkstraPathfindingAlgorithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libWyvernzora.AI\libWyvernzora.AI.csproj">
-      <Project>{dd6a373b-d765-4b50-9712-7b8d3f4a848f}</Project>
-      <Name>libWyvernzora.AI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\libWyvernzora\libWyvernzora.csproj">
       <Project>{e93acb8b-be0c-4fcc-9de1-a35965c58150}</Project>
       <Name>libWyvernzora</Name>

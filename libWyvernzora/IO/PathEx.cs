@@ -401,5 +401,20 @@ namespace libWyvernzora.IO
             wildcard = "^" + Regex.Escape(wildcard).Replace("\\*", @"([^\.\:\\]*)").Replace("\\?", @"([^\.\:\\])") + "$";
             return Regex.IsMatch(path, wildcard);
         }
+
+        /// <summary>
+        /// Creates the directory if it does not exist.
+        /// </summary>
+        /// <param name="directoryName">Directory path.</param>
+        /// <returns>True if the directory was created; false if it already exists.</returns>
+        public static Boolean MakeSureDirectoryExists(String directoryName)
+        {
+            if (!Directory.Exists(directoryName))
+            {
+                Directory.CreateDirectory(directoryName);
+                return true;
+            }
+            return false;
+        }
     }
 }

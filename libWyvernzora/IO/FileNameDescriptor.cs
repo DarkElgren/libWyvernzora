@@ -37,6 +37,18 @@ namespace libWyvernzora.IO
     public class FileNameDescriptor
     {
         /// <summary>
+        /// Constructor.
+        /// Initializes a new instance.
+        /// Defaults all properties to empty strings.
+        /// </summary>
+        public FileNameDescriptor()
+        {
+            Directory = String.Empty;
+            FileName = String.Empty;
+            Extensions = String.Empty;
+        }
+
+        /// <summary>
         ///     Constructor.
         ///     Initializes a new instance.
         /// </summary>
@@ -49,8 +61,8 @@ namespace libWyvernzora.IO
             if (maxExt < 0) throw new ArgumentOutOfRangeException("maxExt");
 
             // Get Directory and remove it from path
-            Directory = PathEx.GetParentDirectory(path);
-            path = PathEx.GetFileName(path);
+            Directory = Path.GetDirectoryName(path);
+            path = Path.GetFileName(path);
 
             if (String.IsNullOrEmpty(path)) throw new InvalidOperationException();
 
