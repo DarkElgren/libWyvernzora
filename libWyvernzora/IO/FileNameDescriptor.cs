@@ -41,7 +41,7 @@ namespace libWyvernzora.IO
         /// Initializes a new instance.
         /// Defaults all properties to empty strings.
         /// </summary>
-        public FileNameDescriptor()
+        protected FileNameDescriptor()
         {
             Directory = String.Empty;
             FileName = String.Empty;
